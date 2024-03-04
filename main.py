@@ -9,16 +9,16 @@ def get_product(id, responses, lock, semaphore=None):
         with semaphore:
             print(f'Requesting id {id}')
             response = requests.get(url)
+    else:
+        print(f'Requesting id {id}')
+        response = requests.get(url)
+
+    if response.status_code == 200:
         data = response.json()
         with lock:
             responses[id] = data
     else:
-        print(f'Requesting id {id}')
-        response = requests.get(url)
-        data = response.json()
-        with lock:
-            responses[id] = data
-
+        print(f"failed to fetch product #{id}")
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description="usage: python main.py -s -n 10")
