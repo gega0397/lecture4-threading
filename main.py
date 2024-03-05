@@ -3,6 +3,7 @@ import threading
 import json
 import argparse
 
+
 def get_product(id, responses, lock, semaphore=None):
     url = f"https://dummyjson.com/products/{id}"
     if semaphore:
@@ -19,6 +20,7 @@ def get_product(id, responses, lock, semaphore=None):
             responses[id] = data
     else:
         print(f"failed to fetch product #{id}")
+
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description="usage: python main.py -s -n 10")
